@@ -1,0 +1,23 @@
+version: '3'
+services:
+  front:
+    container_name: vue-client
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    volumes:
+      - './front:/app'
+      - 'node_modules:/usr/local/bundle'
+    ports:
+        - "80:5173"
+  backend:
+    container_name: flask-api
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - './backend:/app'
+    ports:
+      - "8080:8080"
+volumes:
+  node_modules:
