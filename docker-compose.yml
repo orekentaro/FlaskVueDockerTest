@@ -9,7 +9,8 @@ services:
       - './front:/app'
       - 'node_modules:/usr/local/bundle'
     ports:
-        - "80:5173"
+        - "5173:5173"
+    tty: true
   backend:
     container_name: flask-api
     build:
@@ -19,5 +20,6 @@ services:
       - './backend:/app'
     ports:
       - "8080:8080"
+    tty: true
 volumes:
   node_modules:
