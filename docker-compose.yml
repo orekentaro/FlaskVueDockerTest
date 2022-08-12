@@ -1,5 +1,17 @@
 version: '3.8'
 services:
+  db:
+    container_name: test-db
+    image: postgres:13-alpine
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    command: -c shared_preload_libraries='pg_stat_statements' -c pg_stat_statements.track=all
+    environment:
+      - POSTGRES_DB=management_recruit
+      - POSTGRES_USER=nagatokentarou
+      - POSTGRES_PASSWORD=nagato8
   front:
     container_name: vue-client
     build:
@@ -21,5 +33,7 @@ services:
     ports:
       - "8080:8080"
     tty: true
+    command: "uwsgi --ini app.ini"
 volumes:
+  pgdata:
   node_modules:
